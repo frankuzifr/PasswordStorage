@@ -1,12 +1,14 @@
 package com.frankuzi.passwordstorage.presentation.passwords_list
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.savedstate.SavedStateRegistryOwner
-import com.frankuzi.passwordstorage.domain.model.CreatedPassword
+import com.frankuzi.passwordstorage.domain.model.Created
+import com.frankuzi.passwordstorage.domain.model.Password
 import com.frankuzi.passwordstorage.domain.repository.PasswordsRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -16,13 +18,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class PasswordsViewModel(
-    val passwordsRepository: PasswordsRepository
+    private val passwordsRepository: PasswordsRepository
 ) : ViewModel() {
 
     private var _passwordState = MutableStateFlow<PasswordsScreenState>(PasswordsScreenState.Loading)
     val passwordsState = _passwordState.asStateFlow()
 
     fun loadPasswords() {
+        Log.i("LOAD", "LOAD")
         _passwordState.update {
             PasswordsScreenState.Loading
         }
@@ -45,8 +48,16 @@ class PasswordsViewModel(
         }
     }
 
-    fun addCreatedPassword(password: CreatedPassword) {
+    fun addCreatedPassword(password: Password) {
+        viewModelScope.launch {
+            passwordsRepository.insertNewPassword(password)
+        }
+    }
 
+    fun deleteCreatedPassword(password: Password) {
+        viewModelScope.launch {
+            passwordsRepository.deleteCreatedPassword(password)
+        }
     }
 
     companion object {

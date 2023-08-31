@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "uploaded_passwords")
-data class UploadedPasswords(
-    @PrimaryKey val id: Int,
+data class Uploaded(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(name = "folder_name") val folderName: String,
-    @ColumnInfo(name = "passwords") val passwords: List<String>
+    @ColumnInfo(name = "password_id") val passwordId: Int
 )

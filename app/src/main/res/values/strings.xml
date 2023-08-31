@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PasswordStorage</string>
+    <string name="passwords">Passwords</string>
+    <string name="add_password">Add password</string>
 </resources>

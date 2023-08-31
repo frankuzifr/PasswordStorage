@@ -3,7 +3,7 @@ package com.frankuzi.passwordstorage.domain.model
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class CreatedPassword(
+data class UploadedPassword(
     val password: Password,
-    val created: Created
+    val folderName: String
 )
