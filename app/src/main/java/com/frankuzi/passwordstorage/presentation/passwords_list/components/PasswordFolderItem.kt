@@ -1,14 +1,11 @@
 package com.frankuzi.passwordstorage.presentation.passwords_list.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,18 +29,17 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.frankuzi.passwordstorage.R
-import com.frankuzi.passwordstorage.domain.model.Password
+import com.frankuzi.passwordstorage.domain.model.UploadedPassword
 import com.frankuzi.passwordstorage.ui.theme.Gray_50
 
 @Composable
-fun PasswordItem(
-    password: Password,
-    onPasswordCopyClick: (Password) -> Unit,
-    onPasswordDeleteClick: (Password) -> Unit,
+fun PasswordFolderItem(
+    password: UploadedPassword,
+    onPasswordDeleteClick: (UploadedPassword) -> Unit,
+    onFolderClick: (UploadedPassword) -> Unit
 ) {
     var isContextMenuVisible by rememberSaveable {
         mutableStateOf(false)
@@ -72,50 +68,18 @@ fun PasswordItem(
                     it.width.toDp()
                 }
             }
+            .clickable {
+                onFolderClick.invoke(password)
+            },
+        contentAlignment = Alignment.CenterStart
     ) {
-        Column(
+        Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 20.dp, bottom = 20.dp, start = 20.dp, end = 30.dp),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Center
+                .padding(start = 20.dp, end = 30.dp)
         ) {
-            Row {
-                PasswordText(text = stringResource(id = R.string.name))
-                Spacer(modifier = Modifier.width(5.dp))
-                PasswordText(text = password.passwordName ?: stringResource(id = R.string.no_name))
-            }
-            Spacer(modifier = Modifier.height(5.dp))
-            Row {
-                PasswordText(
-                    text = stringResource(id = R.string.password),
-                )
-                Spacer(modifier = Modifier.width(5.dp))
-                PasswordText(
-                    modifier = Modifier,
-                    text = password.passwordValue
-                )
-            }
-            Spacer(modifier = Modifier.height(5.dp))
-            Row {
-                PasswordText(
-                    text = stringResource(id = R.string.entropy)
-                )
-                Spacer(modifier = Modifier.width(5.dp))
-                PasswordText(
-                    modifier = Modifier,
-                    text = if (password.entropy.isNullOrEmpty()) "" else "H = ${password.entropy}"
-                )
-            }
-            Spacer(modifier = Modifier.height(5.dp))
-            Row {
-                PasswordText(text = stringResource(id = R.string.symbols))
-                Spacer(modifier = Modifier.width(5.dp))
-                PasswordText(
-                    modifier = Modifier,
-                    text = password.symbols ?: ""
-                )
-            }
+            PasswordText(text = stringResource(id = R.string.name))
+            Spacer(modifier = Modifier.width(5.dp))
+            PasswordText(text = password.folderName)
         }
         IconButton(
             modifier = Modifier
@@ -123,7 +87,7 @@ fun PasswordItem(
                 .onGloballyPositioned { layoutCoordinates ->
                     morePressOffset = DpOffset(
                         layoutCoordinates.size.width.dp - itemWidth,
-                        layoutCoordinates.size.height.dp - itemHeight * 2
+                        layoutCoordinates.size.height.dp - itemHeight * 3
                     )
                 },
             onClick = {
@@ -135,7 +99,7 @@ fun PasswordItem(
                 contentDescription = null
             )
         }
-        CreatedPasswordPopupMenu(
+        UploadedPasswordPopupMenu(
             password = password,
             isExpanded = isContextMenuVisible,
             onDismissRequest = {
@@ -145,50 +109,24 @@ fun PasswordItem(
             onDeleteClick = { password ->
                 isContextMenuVisible = false
                 onPasswordDeleteClick.invoke(password)
-            },
-            onCopyClick = {
-                isContextMenuVisible = false
-                onPasswordCopyClick.invoke(password)
             }
         )
     }
 }
 
 @Composable
-fun PasswordText(
-    modifier: Modifier = Modifier,
-    text: String
-) {
-    Text(
-        modifier = modifier,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-        text = text
-    )
-}
-
-@Composable
-fun CreatedPasswordPopupMenu(
-    password: Password,
+fun UploadedPasswordPopupMenu(
+    password: UploadedPassword,
     isExpanded: Boolean,
     onDismissRequest: () -> Unit,
     offset: DpOffset,
-    onDeleteClick: (Password) -> Unit,
-    onCopyClick: (Password) -> Unit
+    onDeleteClick: (UploadedPassword) -> Unit
 ) {
     DropdownMenu(
         expanded = isExpanded,
         onDismissRequest = onDismissRequest,
         offset = offset
     ) {
-        DropdownMenuItem(
-            text = {
-                Text(text = stringResource(id = R.string.copy))
-            },
-            onClick = {
-                onCopyClick.invoke(password)
-            }
-        )
         DropdownMenuItem(
             text = {
                 Text(text = stringResource(id = R.string.delete))

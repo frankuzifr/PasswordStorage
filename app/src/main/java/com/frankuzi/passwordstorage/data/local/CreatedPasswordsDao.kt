@@ -10,7 +10,7 @@ import com.frankuzi.passwordstorage.domain.model.Password
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface CreatedPasswordsDao {
+interface CreatedPasswordsDao: PasswordsDao {
     @Query(
         "SELECT *" +
                 "FROM created_passwords, passwords " +
@@ -31,13 +31,7 @@ interface CreatedPasswordsDao {
     }
 
     @Insert
-    suspend fun insertPassword(password: Password): Long
-
-    @Insert
     suspend fun insertCreated(created: Created)
-
-    @Delete
-    suspend fun deletePassword(password: Password)
 
     @Query("DELETE FROM created_passwords WHERE password_id == :id")
     suspend fun deleteCreated(id: Long)

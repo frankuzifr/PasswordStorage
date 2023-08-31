@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "passwords")
 data class Password (
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    @ColumnInfo(name = "password_name") val passwordName: String?,
+    @ColumnInfo(name = "password_name") val passwordName: String? = null,
     @ColumnInfo(name = "password_value") val passwordValue: String,
-    @ColumnInfo(name = "entropy") val entropy: String?,
-    @ColumnInfo(name = "symbols") val symbols: String?
+    @ColumnInfo(name = "entropy") val entropy: String? = null,
+    @ColumnInfo(name = "symbols") val symbols: String? = null
 )

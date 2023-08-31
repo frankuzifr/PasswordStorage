@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Хранилище паролей</string>
+    <string name="passwords">Пароли</string>
+    <string name="password">Пароль</string>
+    <string name="add_password">Добавить пароль</string>
+    <string name="password_is_empty">Пароль пуст</string>
+    <string name="folder">Папка</string>
+    <string name="save">Сохранить</string>
+    <string name="bit">%1$s бит</string>
+    <string name="password_name">Название пароля</string>
+    <string name="enter_password_name">Введите название пароля</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="symbols">Символы</string>
+    <string name="enter_symbols">Введите символы</string>
+    <string name="entropy">Энтропия</string>
+    <string name="generate">Сгенерировать</string>
+    <string name="select_passwords">Выберите пароли</string>
+    <string name="error">Ошибка</string>
+    <string name="retry">Повторить</string>
+    <string name="name">Название</string>
+    <string name="delete">Удалить</string>
+    <string name="no_name">Без имени</string>
+    <string name="copy">Скопировать</string>
+    <string name="folders">Папки</string>
+    <string name="password_was_copied">Пароль был скопирован</string>
+    <string name="password_saved">Пароль сохранен</string>
+    <string name="storage_is_empty">Хранилище пустое</string>
+</resources>

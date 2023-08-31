@@ -1,5 +1,28 @@
 <resources>
     <string name="app_name">PasswordStorage</string>
     <string name="passwords">Passwords</string>
+    <string name="password">Password</string>
     <string name="add_password">Add password</string>
+    <string name="password_is_empty">Password is empty</string>
+    <string name="folder">Folder</string>
+    <string name="save">Save</string>
+    <string name="bit">%1$s bit</string>
+    <string name="password_name">Password name</string>
+    <string name="enter_password_name">Enter password name</string>
+    <string name="enter_password">Enter password</string>
+    <string name="symbols">Symbols</string>
+    <string name="enter_symbols">Enter symbols</string>
+    <string name="entropy">Entropy</string>
+    <string name="generate">Generate</string>
+    <string name="select_passwords">Select passwords</string>
+    <string name="error">Error</string>
+    <string name="retry">Retry</string>
+    <string name="name">Name</string>
+    <string name="delete">Delete</string>
+    <string name="no_name">No name</string>
+    <string name="copy">Copy</string>
+    <string name="folders">Folders</string>
+    <string name="password_was_copied">Password was copied</string>
+    <string name="password_saved">Password saved</string>
+    <string name="storage_is_empty">Storage is empty</string>
 </resources>

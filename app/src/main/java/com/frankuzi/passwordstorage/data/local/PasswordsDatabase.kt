@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.frankuzi.passwordstorage.domain.model.Created
 import com.frankuzi.passwordstorage.domain.model.Password
+import com.frankuzi.passwordstorage.domain.model.PasswordsFolder
 import com.frankuzi.passwordstorage.domain.model.Uploaded
 
 @Database(
@@ -11,7 +12,8 @@ import com.frankuzi.passwordstorage.domain.model.Uploaded
     entities = [
         Password::class,
         Created::class,
-        Uploaded::class
+        Uploaded::class,
+        PasswordsFolder::class
     ])
 abstract class PasswordsDatabase: RoomDatabase() {
     abstract fun createdPasswordsDao(): CreatedPasswordsDao
